@@ -1,0 +1,118 @@
+# Exalted Reliquary — artifact + character modifiers (below SS personal scale)
+
+### Reliquary base piece modifiers (applied at craft)
+er_reliquary_weapon_modifier = {
+	prowess = 8
+	monthly_prestige = 0.2
+	knight_effectiveness_mult = 0.05
+}
+
+er_reliquary_armor_modifier = {
+	prowess = 4
+	monthly_prestige = 0.15
+	negate_prowess_penalty_add = 2
+	knight_effectiveness_mult = 0.03
+}
+
+er_reliquary_trinket_modifier = {
+	diplomacy = 3
+	stewardship = 3
+	monthly_prestige = 0.25
+	general_opinion = 5
+}
+
+er_reliquary_helmet_modifier = {
+	monthly_prestige = 0.3
+	vassal_opinion = 5
+	court_grandeur_baseline_add = 2
+}
+
+er_reliquary_pedestal_modifier = {
+	court_grandeur_baseline_add = 4
+	monthly_prestige = 0.2
+	monthly_dynasty_prestige = 0.05
+}
+
+### Upgrade step additives
+er_upgrade_tier_1_modifier = {
+	monthly_prestige = 0.1
+	general_opinion = 3
+}
+
+er_upgrade_tier_2_modifier = {
+	monthly_prestige = 0.2
+	general_opinion = 5
+	court_grandeur_baseline_add = 1
+}
+
+er_upgrade_tier_3_modifier = {
+	monthly_prestige = 0.3
+	general_opinion = 8
+	court_grandeur_baseline_add = 2
+}
+
+### Awakened (mythic court piece — still under SS)
+er_awakened_combat_modifier = {
+	prowess = 6
+	knight_effectiveness_mult = 0.08
+	monthly_prestige = 0.15
+}
+
+er_awakened_court_modifier = {
+	diplomacy = 4
+	stewardship = 4
+	court_grandeur_baseline_add = 3
+	general_opinion = 10
+}
+
+er_awakened_learning_modifier = {
+	learning = 6
+	monthly_learning_lifestyle_xp_gain_mult = 0.15
+	monthly_prestige = 0.1
+}
+
+### Vault grandeur (character modifier)
+er_vault_grandeur_modifier = {
+	court_grandeur_baseline_add = 6
+	monthly_prestige = 0.5
+	vassal_opinion = 8
+	courtier_and_guest_opinion = 5
+}
+
+### Regalia title-scale bands (artifact modifiers; refreshed)
+er_regalia_duke_modifier = {
+	monthly_prestige = 0.25
+	vassal_opinion = 5
+	court_grandeur_baseline_add = 2
+}
+
+er_regalia_king_modifier = {
+	monthly_prestige = 0.5
+	vassal_opinion = 10
+	legitimacy_gain_mult = 0.05
+	court_grandeur_baseline_add = 4
+}
+
+er_regalia_emperor_modifier = {
+	monthly_prestige = 0.8
+	vassal_opinion = 15
+	legitimacy_gain_mult = 0.1
+	court_grandeur_baseline_add = 6
+	domain_tax_mult = 0.03
+}
+
+er_regalia_hegemony_modifier = {
+	monthly_prestige = 1.0
+	vassal_opinion = 18
+	legitimacy_gain_mult = 0.12
+	court_grandeur_baseline_add = 8
+	domain_tax_mult = 0.05
+}
+
+### Heirloom flavor
+er_heirloom_base_modifier = {
+	monthly_dynasty_prestige = 0.1
+	monthly_prestige = 0.2
+	dynasty_opinion = 10
+	court_grandeur_baseline_add = 2
+}

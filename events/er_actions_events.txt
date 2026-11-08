@@ -1,0 +1,203 @@
+namespace = er_actions
+
+### M1 Reliquary actions menu
+er_actions.1001 = {
+	type = character_event
+	title = er_actions.1001.t
+	theme = court
+	desc = er_actions.1001.desc
+
+	immediate = {
+		er_ensure_defaults_effect = yes
+	}
+
+	option = {
+		name = er_actions.opt.craft
+		trigger = { er_module_reliquary_active = yes }
+		custom_tooltip = er_actions.tt.craft
+		trigger_event = er_actions.1010
+	}
+
+	option = {
+		name = er_actions.opt.upgrade
+		trigger = {
+			er_module_reliquary_active = yes
+			er_owns_upgradeable_er_artifact = yes
+			er_can_afford_action = { ACTION = upgrade_artifact }
+		}
+		custom_tooltip = er_actions.tt.upgrade
+		er_upgrade_artifact_effect = yes
+	}
+
+	option = {
+		name = er_actions.opt.repair
+		trigger = {
+			er_module_reliquary_active = yes
+			er_owns_damaged_er_artifact = yes
+			er_can_afford_action = { ACTION = repair_artifact }
+		}
+		custom_tooltip = er_actions.tt.repair
+		er_repair_artifact_effect = yes
+	}
+
+	option = {
+		name = er_actions.opt.awaken
+		trigger = {
+			er_module_reliquary_active = yes
+			er_owns_awakenable_er_artifact = yes
+			er_under_awakened_cap = yes
+			er_can_afford_action = { ACTION = awaken_artifact }
+		}
+		custom_tooltip = er_actions.tt.awaken
+		er_awaken_artifact_effect = yes
+	}
+
+	option = {
+		name = er_actions.opt.vault
+		trigger = {
+			er_module_reliquary_active = yes
+			has_game_rule = er_rule_vault_grandeur_on
+			er_can_afford_action = { ACTION = vault_grandeur }
+		}
+		custom_tooltip = er_actions.tt.vault
+		er_vault_grandeur_effect = yes
+	}
+
+	option = {
+		name = er_actions.opt.back
+		trigger_event = er_settings.1001
+	}
+}
+
+### Craft type picker
+er_actions.1010 = {
+	type = character_event
+	title = er_actions.1010.t
+	theme = court
+	desc = er_actions.1010.desc
+
+	option = {
+		name = er_actions.opt.craft_weapon
+		trigger = { er_can_afford_action = { ACTION = craft_reliquary_piece } }
+		custom_tooltip = er_actions.tt.craft_cost
+		er_pay_action_cost_effect = { ACTION = craft_reliquary_piece }
+		er_create_reliquary_weapon_effect = yes
+		trigger_event = er_events.1001
+	}
+
+	option = {
+		name = er_actions.opt.craft_armor
+		trigger = { er_can_afford_action = { ACTION = craft_reliquary_piece } }
+		custom_tooltip = er_actions.tt.craft_cost
+		er_pay_action_cost_effect = { ACTION = craft_reliquary_piece }
+		er_create_reliquary_armor_effect = yes
+		trigger_event = er_events.1001
+	}
+
+	option = {
+		name = er_actions.opt.craft_trinket
+		trigger = { er_can_afford_action = { ACTION = craft_reliquary_piece } }
+		custom_tooltip = er_actions.tt.craft_cost
+		er_pay_action_cost_effect = { ACTION = craft_reliquary_piece }
+		er_create_reliquary_trinket_effect = yes
+		trigger_event = er_events.1001
+	}
+
+	option = {
+		name = er_actions.opt.craft_helmet
+		trigger = { er_can_afford_action = { ACTION = craft_reliquary_piece } }
+		custom_tooltip = er_actions.tt.craft_cost
+		er_pay_action_cost_effect = { ACTION = craft_reliquary_piece }
+		er_create_reliquary_helmet_effect = yes
+		trigger_event = er_events.1001
+	}
+
+	option = {
+		name = er_actions.opt.craft_pedestal
+		trigger = { er_can_afford_action = { ACTION = craft_reliquary_piece } }
+		custom_tooltip = er_actions.tt.craft_cost
+		er_pay_action_cost_effect = { ACTION = craft_reliquary_piece }
+		er_create_reliquary_pedestal_effect = yes
+		trigger_event = er_events.1001
+	}
+
+	option = {
+		name = er_actions.opt.back
+		trigger_event = er_actions.1001
+	}
+}
+
+### M2 Regalia actions
+er_actions.1101 = {
+	type = character_event
+	title = er_actions.1101.t
+	theme = court
+	desc = er_actions.1101.desc
+
+	immediate = {
+		er_ensure_defaults_effect = yes
+	}
+
+	option = {
+		name = er_actions.opt.commission_regalia
+		trigger = {
+			er_may_commission_regalia = yes
+			er_can_afford_action = { ACTION = craft_regalia }
+		}
+		custom_tooltip = er_actions.tt.commission_regalia
+		er_commission_regalia_effect = yes
+	}
+
+	option = {
+		name = er_actions.opt.refresh_regalia
+		trigger = {
+			any_character_artifact = { er_artifact_is_regalia = yes }
+			er_can_afford_action = { ACTION = regalia_refresh }
+		}
+		custom_tooltip = er_actions.tt.refresh_regalia
+		er_paid_regalia_refresh_effect = yes
+	}
+
+	option = {
+		name = er_actions.opt.back
+		trigger_event = er_settings.1001
+	}
+}
+
+### M3 Heirloom actions
+er_actions.1201 = {
+	type = character_event
+	title = er_actions.1201.t
+	theme = court
+	desc = er_actions.1201.desc
+
+	immediate = {
+		er_ensure_defaults_effect = yes
+	}
+
+	option = {
+		name = er_actions.opt.bind_heirloom
+		trigger = {
+			exists = house
+			er_house_under_heirloom_cap = yes
+			er_can_afford_action = { ACTION = craft_heirloom }
+		}
+		custom_tooltip = er_actions.tt.bind_heirloom
+		er_bind_heirloom_effect = yes
+	}
+
+	option = {
+		name = er_actions.opt.reclaim_heirloom
+		trigger = {
+			er_house_can_reclaim_heirloom = yes
+			er_can_afford_action = { ACTION = reclaim_heirloom }
+		}
+		custom_tooltip = er_actions.tt.reclaim_heirloom
+		er_reclaim_heirloom_effect = yes
+	}
+
+	option = {
+		name = er_actions.opt.back
+		trigger_event = er_settings.1001
+	}
+}

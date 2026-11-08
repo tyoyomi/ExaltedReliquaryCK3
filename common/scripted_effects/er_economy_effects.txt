@@ -1,0 +1,60 @@
+# Exalted Reliquary — economy / hub cfg API
+
+# this = character
+er_ensure_defaults_effect = {
+	if = {
+		limit = { NOT = { exists = var:er_cfg_economy } }
+		if = {
+			limit = { has_game_rule = er_rule_economy_free }
+			set_variable = { name = er_cfg_economy value = 0 }
+		}
+		else_if = {
+			limit = { has_game_rule = er_rule_economy_paid_modest }
+			set_variable = { name = er_cfg_economy value = 1 }
+		}
+		else_if = {
+			limit = { has_game_rule = er_rule_economy_paid_ruinous }
+			set_variable = { name = er_cfg_economy value = 3 }
+		}
+		else = {
+			set_variable = { name = er_cfg_economy value = 2 }
+		}
+	}
+}
+
+# Cycle free → modest → expensive → ruinous → free
+er_cycle_economy_cfg_effect = {
+	er_ensure_defaults_effect = yes
+	if = {
+		limit = { NOT = { er_hub_may_cycle_economy = yes } }
+		custom_tooltip = er_tt_economy_cycle_locked
+	}
+	else = {
+		if = {
+			limit = { var:er_cfg_economy = 0 }
+			set_variable = { name = er_cfg_economy value = 1 }
+		}
+		else_if = {
+			limit = { var:er_cfg_economy = 1 }
+			set_variable = { name = er_cfg_economy value = 2 }
+		}
+		else_if = {
+			limit = { var:er_cfg_economy = 2 }
+			set_variable = { name = er_cfg_economy value = 3 }
+		}
+		else = {
+			set_variable = { name = er_cfg_economy value = 0 }
+		}
+	}
+}
+
+# Pay-first API. Call as: er_pay_action_cost_effect = { ACTION = craft_reliquary_piece }
+er_pay_action_cost_effect = {
+	if = {
+		limit = { er_economy_is_free = yes }
+		custom_tooltip = er_tt_economy_free_noop
+	}
+	else = {
+		remove_short_term_gold = er_$ACTION$_final_cost_value
+	}
+}

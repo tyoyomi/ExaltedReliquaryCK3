@@ -1,0 +1,183 @@
+# Exalted Reliquary — M2 Supreme Regalia effects
+
+er_clear_regalia_band_modifiers_effect = {
+	# this = artifact
+	remove_artifact_modifier = er_regalia_duke_modifier
+	remove_artifact_modifier = er_regalia_king_modifier
+	remove_artifact_modifier = er_regalia_emperor_modifier
+	remove_artifact_modifier = er_regalia_hegemony_modifier
+}
+
+# this = character who holds / benefits; scope:er_regalia_artifact optional
+er_refresh_regalia_effect = {
+	if = {
+		limit = { exists = scope:er_regalia_artifact }
+		scope:er_regalia_artifact = { save_scope_as = er_regalia_target }
+	}
+	else = {
+		random_character_artifact = {
+			limit = { er_artifact_is_regalia = yes }
+			save_scope_as = er_regalia_target
+		}
+	}
+	if = {
+		limit = { exists = scope:er_regalia_target }
+		scope:er_regalia_target = {
+			er_clear_regalia_band_modifiers_effect = yes
+			if = {
+				limit = {
+					exists = artifact_owner
+					artifact_owner = { highest_held_title_tier >= tier_hegemony }
+				}
+				add_artifact_modifier = er_regalia_hegemony_modifier
+				set_variable = { name = er_regalia_tier value = 4 }
+			}
+			else_if = {
+				limit = {
+					exists = artifact_owner
+					artifact_owner = { highest_held_title_tier >= tier_empire }
+				}
+				add_artifact_modifier = er_regalia_emperor_modifier
+				set_variable = { name = er_regalia_tier value = 3 }
+			}
+			else_if = {
+				limit = {
+					exists = artifact_owner
+					artifact_owner = { highest_held_title_tier >= tier_kingdom }
+				}
+				add_artifact_modifier = er_regalia_king_modifier
+				set_variable = { name = er_regalia_tier value = 2 }
+			}
+			else = {
+				add_artifact_modifier = er_regalia_duke_modifier
+				set_variable = { name = er_regalia_tier value = 1 }
+			}
+		}
+	}
+}
+
+er_commission_regalia_effect = {
+	er_ensure_defaults_effect = yes
+	er_pay_action_cost_effect = { ACTION = craft_regalia }
+	set_artifact_rarity_illustrious = yes
+	if = {
+		limit = { has_game_rule = er_rule_decaying_never_decay }
+		create_artifact = {
+			name = er_supreme_regalia_crown_name
+			description = er_supreme_regalia_crown_desc
+			visuals = hre_crown
+			type = helmet
+			template = er_regalia_template
+			modifier = er_regalia_duke_modifier
+			wealth = scope:wealth
+			quality = scope:quality
+			decaying = no
+			history = { type = created_before_history }
+			save_scope_as = newly_created_artifact
+		}
+	}
+	else = {
+		create_artifact = {
+			name = er_supreme_regalia_crown_name
+			description = er_supreme_regalia_crown_desc
+			visuals = hre_crown
+			type = helmet
+			template = er_regalia_template
+			modifier = er_regalia_duke_modifier
+			wealth = scope:wealth
+			quality = scope:quality
+			history = { type = created_before_history }
+			save_scope_as = newly_created_artifact
+		}
+	}
+	scope:newly_created_artifact = {
+		set_variable = { name = er_regalia_piece value = yes }
+		set_variable = { name = er_reliquary_piece value = yes }
+		set_variable = { name = er_upgrade_tier value = 0 }
+		set_variable = { name = er_piece_kind value = flag:helmet }
+		if = {
+			limit = { exists = root.primary_title }
+			set_variable = {
+				name = er_regalia_succession_title
+				value = root.primary_title
+			}
+			set_variable = {
+				name = artifact_succession_title
+				value = root.primary_title
+			}
+		}
+		save_scope_as = er_regalia_artifact
+	}
+	if = {
+		limit = { exists = house }
+		house = {
+			set_variable = { name = er_regalia_commissioned value = yes }
+		}
+	}
+	er_refresh_regalia_effect = yes
+	if = {
+		limit = {
+			exists = scope:newly_created_artifact
+			can_equip_artifact = scope:newly_created_artifact
+		}
+		scope:newly_created_artifact = { equip_artifact_to_owner = yes }
+	}
+	trigger_event = er_events.1101
+}
+
+# Paid title-scale refresh (hub / rank-up)
+er_paid_regalia_refresh_effect = {
+	er_pay_action_cost_effect = { ACTION = regalia_refresh }
+	er_refresh_regalia_effect = yes
+	trigger_event = er_events.1102
+}
+
+# this = heir / new holder
+er_auto_equip_regalia_effect = {
+	if = {
+		limit = {
+			has_game_rule = er_rule_regalia_auto_equip_on
+			er_module_regalia_active = yes
+		}
+		# Pull house regalia onto this character if held elsewhere in house
+		if = {
+			limit = {
+				exists = house
+				NOT = {
+					any_character_artifact = { er_artifact_is_regalia = yes }
+				}
+			}
+			house = { save_temporary_scope_as = er_regalia_house }
+			random_living_character = {
+				limit = {
+					house = scope:er_regalia_house
+					NOT = { this = root }
+					any_character_artifact = { er_artifact_is_regalia = yes }
+				}
+				random_character_artifact = {
+					limit = { er_artifact_is_regalia = yes }
+					set_owner = {
+						target = root
+						history = {
+							type = inherited
+							actor = prev
+							recipient = root
+						}
+					}
+				}
+			}
+		}
+		random_character_artifact = {
+			limit = { er_artifact_is_regalia = yes }
+			save_scope_as = er_regalia_artifact
+		}
+		if = {
+			limit = {
+				exists = scope:er_regalia_artifact
+				can_equip_artifact = scope:er_regalia_artifact
+			}
+			scope:er_regalia_artifact = { equip_artifact_to_owner = yes }
+		}
+		er_refresh_regalia_effect = yes
+	}
+}

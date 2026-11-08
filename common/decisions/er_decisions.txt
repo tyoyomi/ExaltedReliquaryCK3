@@ -1,0 +1,38 @@
+er_manage_reliquary_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_misc.dds"
+	}
+	decision_group_type = major
+	desc = er_manage_reliquary_decision_desc
+	selection_tooltip = er_manage_reliquary_decision_tooltip
+	confirm_text = er_manage_reliquary_decision_confirm
+
+	ai_check_interval = 0
+
+	is_shown = {
+		is_alive = yes
+		NOT = { has_game_rule = er_rule_granting_disabled }
+		OR = {
+			is_ai = no
+			has_game_rule = er_rule_granting_player_and_ai
+		}
+	}
+
+	is_valid = {
+		always = yes
+	}
+
+	effect = {
+		custom_tooltip = er_manage_reliquary_decision_effect_tt
+		er_ensure_defaults_effect = yes
+		trigger_event = er_settings.1001
+	}
+
+	ai_potential = {
+		always = no
+	}
+
+	ai_will_do = {
+		base = 0
+	}
+}

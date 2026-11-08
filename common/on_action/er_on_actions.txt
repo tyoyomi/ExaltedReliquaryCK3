@@ -1,0 +1,111 @@
+# Exalted Reliquary — append-only vanilla hooks (never overwrite effect/trigger on vanilla roots)
+
+on_game_start_after_lobby = {
+	on_actions = { er_on_game_start }
+}
+
+er_on_game_start = {
+	effect = {
+		every_player = {
+			er_ensure_defaults_effect = yes
+			if = {
+				limit = {
+					NOT = { er_has_royal_court = yes }
+					NOT = { has_variable = er_no_dlc_notified }
+				}
+				set_variable = { name = er_no_dlc_notified value = yes }
+				trigger_event = er_events.9001
+			}
+		}
+	}
+}
+
+on_death = {
+	on_actions = { er_on_death }
+}
+
+er_on_death = {
+	effect = {
+		if = {
+			limit = {
+				is_ai = no
+				has_game_rule = er_rule_regalia_auto_equip_on
+				er_module_regalia_active = yes
+				OR = {
+					any_character_artifact = { er_artifact_is_regalia = yes }
+					AND = {
+						exists = house
+						any_living_character = {
+							house = root.house
+							any_character_artifact = { er_artifact_is_regalia = yes }
+						}
+					}
+				}
+				exists = player_heir
+			}
+			player_heir = {
+				trigger_event = {
+					id = er_events.2001
+					days = 5
+				}
+			}
+		}
+	}
+}
+
+on_title_gain = {
+	on_actions = { er_on_title_gain }
+}
+
+er_on_title_gain = {
+	trigger = {
+		er_module_regalia_active = yes
+		any_character_artifact = { er_artifact_is_regalia = yes }
+	}
+	effect = {
+		er_refresh_regalia_effect = yes
+	}
+}
+
+on_rank_up = {
+	on_actions = { er_on_rank_up }
+}
+
+er_on_rank_up = {
+	trigger = {
+		er_module_regalia_active = yes
+		any_character_artifact = { er_artifact_is_regalia = yes }
+	}
+	effect = {
+		er_refresh_regalia_effect = yes
+	}
+}
+
+yearly_playable_pulse = {
+	on_actions = { er_yearly_pulse }
+}
+
+er_yearly_pulse = {
+	trigger = {
+		is_alive = yes
+		OR = {
+			is_ai = no
+			has_game_rule = er_rule_granting_player_and_ai
+		}
+	}
+	effect = {
+		er_ensure_defaults_effect = yes
+		# Safety auto-equip for player house heads
+		if = {
+			limit = {
+				is_ai = no
+				has_game_rule = er_rule_regalia_auto_equip_on
+				er_module_regalia_active = yes
+				any_character_artifact = { er_artifact_is_regalia = yes }
+			}
+			er_auto_equip_regalia_effect = yes
+		}
+		# Never-lost heirloom scan
+		er_never_lost_scan_effect = yes
+	}
+}
