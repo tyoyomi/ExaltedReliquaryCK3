@@ -1,0 +1,7 @@
+# Exalted Reliquary — custom decision group (additive; does not replace vanilla major)
+
+er_reliquary = {
+	sort_order = 185
+	gui_tags = { big_button }
+	important_decision_group = yes
+}

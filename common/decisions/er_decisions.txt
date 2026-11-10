@@ -2,7 +2,7 @@ er_manage_reliquary_decision = {
 	picture = {
 		reference = "gfx/interface/illustrations/decisions/decision_misc.dds"
 	}
-	decision_group_type = major
+	decision_group_type = er_reliquary
 	desc = er_manage_reliquary_decision_desc
 	selection_tooltip = er_manage_reliquary_decision_tooltip
 	confirm_text = er_manage_reliquary_decision_confirm

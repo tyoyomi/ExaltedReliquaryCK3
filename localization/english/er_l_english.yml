@@ -6,6 +6,9 @@
  er_manage_reliquary_decision_confirm:0 "Open Hub"
  er_manage_reliquary_decision_effect_tt:0 "Opens the Exalted Reliquary manage hub"
 
+ # Decision group
+ decision_group_type_er_reliquary:0 "Exalted Reliquary"
+
  # Artifact names / descs
  er_reliquary_weapon_name:0 "Exalted Reliquary Blade"
  er_reliquary_weapon_desc:0 "A legendary blade forged for the Exalted Reliquary — keen steel meant for a ruler's chosen champions."
