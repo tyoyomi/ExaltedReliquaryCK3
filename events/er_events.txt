@@ -1,0 +1,157 @@
+namespace = er_events
+
+### Craft / upgrade / repair / awaken / vault notifies
+er_events.1001 = {
+	type = character_event
+	title = er_events.1001.t
+	theme = court
+	desc = er_events.1001.desc
+
+	option = {
+		name = er_events.opt.ok
+		trigger_event = er_settings.1001
+	}
+}
+
+er_events.1002 = {
+	type = character_event
+	title = er_events.1002.t
+	theme = court
+	desc = er_events.1002.desc
+
+	option = {
+		name = er_events.opt.ok
+		trigger_event = er_settings.1001
+	}
+}
+
+er_events.1003 = {
+	type = character_event
+	title = er_events.1003.t
+	theme = court
+	desc = er_events.1003.desc
+
+	option = {
+		name = er_events.opt.ok
+		trigger_event = er_settings.1001
+	}
+}
+
+er_events.1004 = {
+	type = character_event
+	title = er_events.1004.t
+	theme = court
+	desc = er_events.1004.desc
+
+	option = {
+		name = er_events.opt.ok
+		trigger_event = er_settings.1001
+	}
+}
+
+er_events.1005 = {
+	type = character_event
+	title = er_events.1005.t
+	theme = court
+	desc = er_events.1005.desc
+
+	option = {
+		name = er_events.opt.ok
+		trigger_event = er_settings.1001
+	}
+}
+
+### Regalia notifies
+er_events.1101 = {
+	type = character_event
+	title = er_events.1101.t
+	theme = court
+	desc = er_events.1101.desc
+
+	option = {
+		name = er_events.opt.ok
+		trigger_event = er_settings.1001
+	}
+}
+
+er_events.1102 = {
+	type = character_event
+	title = er_events.1102.t
+	theme = court
+	desc = er_events.1102.desc
+
+	option = {
+		name = er_events.opt.ok
+		trigger_event = er_settings.1001
+	}
+}
+
+### Heirloom notifies
+er_events.1201 = {
+	type = character_event
+	title = er_events.1201.t
+	theme = court
+	desc = er_events.1201.desc
+
+	option = {
+		name = er_events.opt.ok
+		trigger_event = er_settings.1001
+	}
+}
+
+er_events.1202 = {
+	type = character_event
+	title = er_events.1202.t
+	theme = court
+	desc = er_events.1202.desc
+
+	option = {
+		name = er_events.opt.ok
+		trigger_event = er_settings.1001
+	}
+}
+
+er_events.1203 = {
+	type = character_event
+	title = er_events.1203.t
+	theme = court
+	desc = er_events.1203.desc
+
+	option = {
+		name = er_events.opt.ok
+	}
+}
+
+### Delayed succession auto-equip
+er_events.2001 = {
+	type = character_event
+	title = er_events.2001.t
+	theme = court
+	desc = er_events.2001.desc
+
+	trigger = {
+		is_alive = yes
+		has_game_rule = er_rule_regalia_auto_equip_on
+		er_module_regalia_active = yes
+	}
+
+	immediate = {
+		er_auto_equip_regalia_effect = yes
+	}
+
+	option = {
+		name = er_events.opt.ok
+	}
+}
+
+### No Royal Court grace toast
+er_events.9001 = {
+	type = character_event
+	title = er_events.9001.t
+	theme = court
+	desc = er_events.9001.desc
+
+	option = {
+		name = er_events.opt.ok
+	}
+}

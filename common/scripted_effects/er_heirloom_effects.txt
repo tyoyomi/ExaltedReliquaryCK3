@@ -1,0 +1,191 @@
+# Exalted Reliquary — M3 Dynasty Heirlooms effects
+
+er_bind_heirloom_effect = {
+	er_ensure_defaults_effect = yes
+	er_pay_action_cost_effect = { ACTION = craft_heirloom }
+	random_character_artifact = {
+		limit = {
+			er_artifact_is_er_flagged = yes
+			NOT = { er_artifact_is_heirloom = yes }
+		}
+		save_scope_as = er_bind_target
+		set_variable = { name = er_heirloom value = yes }
+		if = {
+			limit = { exists = root.house }
+			set_variable = {
+				name = er_heirloom_house
+				value = root.house
+			}
+		}
+		add_artifact_modifier = er_heirloom_base_modifier
+		if = {
+			limit = { exists = root.house }
+			root.house = {
+				if = {
+					limit = { NOT = { exists = var:er_heirloom_count } }
+					set_variable = { name = er_heirloom_count value = 0 }
+				}
+				change_variable = { name = er_heirloom_count add = 1 }
+				set_variable = {
+					name = er_heirloom_slot
+					value = var:er_heirloom_count
+				}
+			}
+			set_variable = {
+				name = er_heirloom_key
+				value = root.house.var:er_heirloom_count
+			}
+			# Registry flag on house for never-lost scans
+			root.house = {
+				set_variable = {
+					name = er_registry_alive
+					value = yes
+				}
+			}
+		}
+	}
+	# If no bindable piece existed, craft a new heirloom trinket then bind flags
+	if = {
+		limit = { NOT = { exists = scope:er_bind_target } }
+		er_create_reliquary_trinket_effect = yes
+		scope:newly_created_artifact = {
+			save_scope_as = er_bind_target
+			set_variable = { name = er_heirloom value = yes }
+			if = {
+				limit = { exists = root.house }
+				set_variable = {
+					name = er_heirloom_house
+					value = root.house
+				}
+			}
+			add_artifact_modifier = er_heirloom_base_modifier
+			if = {
+				limit = { exists = root.house }
+				root.house = {
+					if = {
+						limit = { NOT = { exists = var:er_heirloom_count } }
+						set_variable = { name = er_heirloom_count value = 0 }
+					}
+					change_variable = { name = er_heirloom_count add = 1 }
+					set_variable = { name = er_registry_alive value = yes }
+				}
+				set_variable = {
+					name = er_heirloom_key
+					value = root.house.var:er_heirloom_count
+				}
+			}
+		}
+	}
+	trigger_event = er_events.1201
+}
+
+er_reclaim_heirloom_effect = {
+	er_ensure_defaults_effect = yes
+	er_pay_action_cost_effect = { ACTION = reclaim_heirloom }
+	save_scope_as = er_reclaim_actor
+	random_living_character = {
+		limit = {
+			any_character_artifact = {
+				er_artifact_is_heirloom = yes
+				exists = var:er_heirloom_house
+				var:er_heirloom_house = scope:er_reclaim_actor.house
+				artifact_owner = {
+					OR = {
+						NOT = { exists = house }
+						NOT = { house = scope:er_reclaim_actor.house }
+					}
+				}
+			}
+		}
+		save_scope_as = er_previous_holder
+		random_character_artifact = {
+			limit = {
+				er_artifact_is_heirloom = yes
+				exists = var:er_heirloom_house
+				var:er_heirloom_house = scope:er_reclaim_actor.house
+			}
+			save_scope_as = er_reclaim_target
+			set_owner = {
+				target = scope:er_reclaim_actor
+				history = {
+					type = taken_in_siege
+					actor = scope:er_previous_holder
+					recipient = scope:er_reclaim_actor
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = scope:er_previous_holder
+				scope:er_previous_holder = { is_alive = yes }
+			}
+			scope:er_previous_holder = {
+				add_opinion = {
+					target = scope:er_reclaim_actor
+					modifier = insulted_opinion
+					opinion = -15
+				}
+			}
+		}
+	}
+	trigger_event = er_events.1202
+}
+
+er_recreate_heirloom_effect = {
+	er_ensure_defaults_effect = yes
+	er_pay_action_cost_effect = { ACTION = craft_heirloom }
+	er_create_reliquary_trinket_effect = yes
+	scope:newly_created_artifact = {
+		set_variable = { name = er_heirloom value = yes }
+		set_artifact_name = er_heirloom_restored_name
+		set_artifact_description = er_heirloom_restored_desc
+		if = {
+			limit = { exists = root.house }
+			set_variable = {
+				name = er_heirloom_house
+				value = root.house
+			}
+		}
+		add_artifact_modifier = er_heirloom_base_modifier
+	}
+	if = {
+		limit = { exists = house }
+		house = {
+			set_variable = { name = er_registry_alive value = yes }
+		}
+	}
+	trigger_event = er_events.1203
+}
+
+# Yearly never-lost scan — this = house head
+er_never_lost_scan_effect = {
+	if = {
+		limit = {
+			has_game_rule = er_rule_heirloom_never_lost_on
+			er_module_heirlooms_active = yes
+			exists = house
+			is_house_head = yes
+			house = {
+				exists = var:er_heirloom_count
+				var:er_heirloom_count > 0
+			}
+		}
+		save_scope_as = er_scan_head
+		house = { save_scope_as = er_scan_house }
+		if = {
+			limit = {
+				NOT = {
+					any_living_character = {
+						any_character_artifact = {
+							er_artifact_is_heirloom = yes
+							exists = var:er_heirloom_house
+							var:er_heirloom_house = scope:er_scan_house
+						}
+					}
+				}
+			}
+			# All house heirlooms gone — restore one (sanctioned recreate)
+			er_recreate_heirloom_effect = yes
+		}
+	}
+}

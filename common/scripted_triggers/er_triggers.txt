@@ -1,0 +1,213 @@
+# Exalted Reliquary — scripted triggers
+
+er_has_royal_court = {
+	has_ep1_dlc_trigger = yes
+}
+
+er_module_reliquary_active = {
+	NOT = { has_game_rule = er_rule_module_reliquary_off }
+}
+
+er_module_regalia_active = {
+	NOT = { has_game_rule = er_rule_module_regalia_off }
+}
+
+er_module_heirlooms_active = {
+	NOT = { has_game_rule = er_rule_module_heirlooms_off }
+}
+
+er_character_is_supreme_sovereign = {
+	has_trait = Supreme_Sovereign
+}
+
+er_economy_is_free = {
+	OR = {
+		AND = {
+			exists = var:er_cfg_economy
+			var:er_cfg_economy = 0
+		}
+		AND = {
+			NOT = { exists = var:er_cfg_economy }
+			has_game_rule = er_rule_economy_free
+		}
+		AND = {
+			is_ai = yes
+			has_game_rule = er_rule_ai_economy_ai_always_free
+		}
+	}
+}
+
+er_hub_may_cycle_economy = {
+	has_game_rule = er_rule_hub_economy_cycle_allow
+}
+
+er_actor_may_use_reliquary = {
+	is_alive = yes
+	NOT = { has_game_rule = er_rule_granting_disabled }
+	trigger_if = {
+		limit = { has_game_rule = er_rule_granting_player_only }
+		is_ai = no
+	}
+	trigger_if = {
+		limit = {
+			is_ai = yes
+			has_game_rule = er_rule_ai_economy_ai_disabled
+		}
+		always = no
+	}
+	er_has_royal_court = yes
+}
+
+er_can_afford_action = {
+	OR = {
+		er_economy_is_free = yes
+		gold >= er_$ACTION$_final_cost_value
+	}
+}
+
+er_artifact_is_reliquary_piece = {
+	has_variable = er_reliquary_piece
+	var:er_reliquary_piece = yes
+}
+
+er_artifact_is_regalia = {
+	has_variable = er_regalia_piece
+	var:er_regalia_piece = yes
+}
+
+er_artifact_is_heirloom = {
+	has_variable = er_heirloom
+	var:er_heirloom = yes
+}
+
+er_artifact_is_awakened = {
+	has_variable = er_awakened
+	var:er_awakened = yes
+}
+
+er_artifact_is_er_flagged = {
+	OR = {
+		er_artifact_is_reliquary_piece = yes
+		er_artifact_is_regalia = yes
+		er_artifact_is_heirloom = yes
+	}
+}
+
+er_under_awakened_cap = {
+	trigger_if = {
+		limit = { has_game_rule = er_rule_max_awakened_unlimited }
+		always = yes
+	}
+	trigger_else = {
+		custom_tooltip = {
+			text = er_tt_under_awakened_cap
+			er_awakened_count_value < er_max_awakened_value
+		}
+	}
+}
+
+er_owns_er_artifact = {
+	any_character_artifact = {
+		er_artifact_is_er_flagged = yes
+	}
+}
+
+er_owns_damaged_er_artifact = {
+	any_character_artifact = {
+		er_artifact_is_er_flagged = yes
+		artifact_durability < artifact_max_durability
+	}
+}
+
+er_owns_upgradeable_er_artifact = {
+	any_character_artifact = {
+		er_artifact_is_er_flagged = yes
+		NAND = {
+			exists = var:er_upgrade_tier
+			var:er_upgrade_tier >= @er_max_upgrade_tier
+		}
+	}
+}
+
+er_owns_awakenable_er_artifact = {
+	any_character_artifact = {
+		er_artifact_is_er_flagged = yes
+		NOT = { er_artifact_is_awakened = yes }
+	}
+}
+
+er_owns_bindable_er_artifact = {
+	any_character_artifact = {
+		er_artifact_is_er_flagged = yes
+		NOT = { er_artifact_is_heirloom = yes }
+	}
+}
+
+er_house_under_heirloom_cap = {
+	exists = house
+	custom_tooltip = {
+		text = er_tt_under_heirloom_cap
+		er_house_heirloom_count_value < @er_max_heirlooms
+	}
+}
+
+er_house_can_reclaim_heirloom = {
+	exists = house
+	is_house_head = yes
+	er_module_heirlooms_active = yes
+	save_temporary_scope_as = er_reclaim_actor
+	custom_tooltip = {
+		text = er_tt_has_reclaimable_heirloom
+		any_living_character = {
+			any_character_artifact = {
+				er_artifact_is_heirloom = yes
+				exists = var:er_heirloom_house
+				var:er_heirloom_house = scope:er_reclaim_actor.house
+				artifact_owner = {
+					OR = {
+						NOT = { exists = house }
+						NOT = { house = scope:er_reclaim_actor.house }
+					}
+				}
+			}
+		}
+	}
+}
+
+er_dynasty_has_active_regalia = {
+	exists = house
+	OR = {
+		any_character_artifact = {
+			er_artifact_is_regalia = yes
+		}
+		any_living_character = {
+			house = root.house
+			any_character_artifact = {
+				er_artifact_is_regalia = yes
+			}
+		}
+	}
+}
+
+er_may_commission_regalia = {
+	er_module_regalia_active = yes
+	highest_held_title_tier >= tier_duchy
+	NOT = {
+		any_character_artifact = {
+			er_artifact_is_regalia = yes
+		}
+	}
+	NAND = {
+		exists = house
+		house = {
+			exists = var:er_regalia_commissioned
+			var:er_regalia_commissioned = yes
+		}
+		any_living_character = {
+			house = root.house
+			any_character_artifact = {
+				er_artifact_is_regalia = yes
+			}
+		}
+	}
+}

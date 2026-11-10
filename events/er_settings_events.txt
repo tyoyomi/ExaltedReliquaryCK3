@@ -1,0 +1,116 @@
+namespace = er_settings
+
+# Manage Reliquary hub — live economy / modules / status + action menus
+er_settings.1001 = {
+	type = character_event
+	title = er_settings.1001.t
+	theme = court
+
+	desc = {
+		desc = er_settings.1001.desc_intro
+		desc = er_settings.1001.desc_blank
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:er_cfg_economy = 0 }
+				desc = er_settings.economy.free
+			}
+			triggered_desc = {
+				trigger = { var:er_cfg_economy = 1 }
+				desc = er_settings.economy.modest
+			}
+			triggered_desc = {
+				trigger = { var:er_cfg_economy = 2 }
+				desc = er_settings.economy.expensive
+			}
+			triggered_desc = {
+				trigger = { var:er_cfg_economy = 3 }
+				desc = er_settings.economy.ruinous
+			}
+			desc = er_settings.economy.expensive
+		}
+		desc = er_settings.1001.desc_blank
+		first_valid = {
+			triggered_desc = {
+				trigger = { er_has_royal_court = yes }
+				desc = er_settings.dlc.yes
+			}
+			desc = er_settings.dlc.no
+		}
+		desc = er_settings.1001.desc_blank
+		desc = er_settings.1001.desc_modules
+		desc = er_settings.1001.desc_blank
+		desc = er_settings.1001.desc_footer
+	}
+
+	immediate = {
+		er_ensure_defaults_effect = yes
+	}
+
+	option = {
+		name = {
+			text = {
+				first_valid = {
+					triggered_desc = {
+						trigger = { var:er_cfg_economy = 0 }
+						desc = er_settings.opt.economy_free
+					}
+					triggered_desc = {
+						trigger = { var:er_cfg_economy = 1 }
+						desc = er_settings.opt.economy_modest
+					}
+					triggered_desc = {
+						trigger = { var:er_cfg_economy = 2 }
+						desc = er_settings.opt.economy_expensive
+					}
+					triggered_desc = {
+						trigger = { var:er_cfg_economy = 3 }
+						desc = er_settings.opt.economy_ruinous
+					}
+					desc = er_settings.opt.economy_expensive
+				}
+			}
+		}
+		trigger = { er_hub_may_cycle_economy = yes }
+		custom_tooltip = er_settings.tt.economy
+		er_cycle_economy_cfg_effect = yes
+		trigger_event = er_settings.1001
+	}
+
+	option = {
+		name = er_settings.opt.actions_reliquary
+		trigger = {
+			er_module_reliquary_active = yes
+			er_has_royal_court = yes
+			er_actor_may_use_reliquary = yes
+		}
+		custom_tooltip = er_settings.tt.actions_reliquary
+		trigger_event = er_actions.1001
+	}
+
+	option = {
+		name = er_settings.opt.actions_regalia
+		trigger = {
+			er_module_regalia_active = yes
+			er_has_royal_court = yes
+			er_actor_may_use_reliquary = yes
+		}
+		custom_tooltip = er_settings.tt.actions_regalia
+		trigger_event = er_actions.1101
+	}
+
+	option = {
+		name = er_settings.opt.actions_heirlooms
+		trigger = {
+			er_module_heirlooms_active = yes
+			er_has_royal_court = yes
+			er_actor_may_use_reliquary = yes
+		}
+		custom_tooltip = er_settings.tt.actions_heirlooms
+		trigger_event = er_actions.1201
+	}
+
+	option = {
+		name = er_settings.1001.close
+		custom_tooltip = er_settings.tt.close
+	}
+}

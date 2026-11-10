@@ -1,0 +1,160 @@
+# Exalted Reliquary — base gold (paid_modest = ×1) and derived costs
+
+@er_base_craft_reliquary = 500
+@er_base_craft_regalia = 800
+@er_base_craft_heirloom = 600
+@er_base_upgrade = 400
+@er_base_repair = 250
+@er_base_awaken = 1000
+@er_base_vault = 300
+@er_base_reclaim = 200
+@er_base_regalia_refresh = 150
+
+@er_max_heirlooms = 5
+@er_max_upgrade_tier = 3
+
+# Economy multiplier from live hub cfg (0 free / 1 modest / 2 expensive / 3 ruinous)
+er_economy_multiplier_value = {
+	value = 3
+	if = {
+		limit = {
+			exists = var:er_cfg_economy
+			var:er_cfg_economy = 0
+		}
+		value = 0
+	}
+	else_if = {
+		limit = {
+			exists = var:er_cfg_economy
+			var:er_cfg_economy = 1
+		}
+		value = 1
+	}
+	else_if = {
+		limit = {
+			exists = var:er_cfg_economy
+			var:er_cfg_economy = 2
+		}
+		value = 3
+	}
+	else_if = {
+		limit = {
+			exists = var:er_cfg_economy
+			var:er_cfg_economy = 3
+		}
+		value = 8
+	}
+	else_if = {
+		limit = { has_game_rule = er_rule_economy_free }
+		value = 0
+	}
+	else_if = {
+		limit = { has_game_rule = er_rule_economy_paid_modest }
+		value = 1
+	}
+	else_if = {
+		limit = { has_game_rule = er_rule_economy_paid_ruinous }
+		value = 8
+	}
+	else = {
+		value = 3
+	}
+}
+
+er_craft_reliquary_piece_final_cost_value = {
+	value = @er_base_craft_reliquary
+	multiply = er_economy_multiplier_value
+}
+
+er_craft_regalia_final_cost_value = {
+	value = @er_base_craft_regalia
+	multiply = er_economy_multiplier_value
+}
+
+er_craft_heirloom_final_cost_value = {
+	value = @er_base_craft_heirloom
+	multiply = er_economy_multiplier_value
+}
+
+er_upgrade_artifact_final_cost_value = {
+	value = @er_base_upgrade
+	multiply = er_economy_multiplier_value
+}
+
+er_repair_artifact_final_cost_value = {
+	value = @er_base_repair
+	multiply = er_economy_multiplier_value
+}
+
+er_awaken_artifact_final_cost_value = {
+	value = @er_base_awaken
+	multiply = er_economy_multiplier_value
+}
+
+er_vault_grandeur_final_cost_value = {
+	value = @er_base_vault
+	multiply = er_economy_multiplier_value
+}
+
+er_reclaim_heirloom_final_cost_value = {
+	value = @er_base_reclaim
+	multiply = er_economy_multiplier_value
+}
+
+er_regalia_refresh_final_cost_value = {
+	value = @er_base_regalia_refresh
+	multiply = er_economy_multiplier_value
+}
+
+er_max_awakened_value = {
+	value = 3
+	if = {
+		limit = { has_game_rule = er_rule_max_awakened_1 }
+		value = 1
+	}
+	else_if = {
+		limit = { has_game_rule = er_rule_max_awakened_3 }
+		value = 3
+	}
+	else_if = {
+		limit = { has_game_rule = er_rule_max_awakened_5 }
+		value = 5
+	}
+	else_if = {
+		limit = { has_game_rule = er_rule_max_awakened_unlimited }
+		value = 9999
+	}
+}
+
+er_awakened_count_value = {
+	value = 0
+	every_character_artifact = {
+		limit = {
+			has_variable = er_awakened
+			var:er_awakened = yes
+		}
+		add = 1
+	}
+}
+
+er_heirloom_owned_count_value = {
+	value = 0
+	every_character_artifact = {
+		limit = {
+			has_variable = er_heirloom
+			var:er_heirloom = yes
+		}
+		add = 1
+	}
+}
+
+er_house_heirloom_count_value = {
+	value = 0
+	if = {
+		limit = {
+			exists = house
+			house = { exists = var:er_heirloom_count }
+		}
+		value = house.var:er_heirloom_count
+	}
+}

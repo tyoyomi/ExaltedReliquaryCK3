@@ -1,0 +1,309 @@
+# Exalted Reliquary — M1 Reliquary Core effects
+# this = crafting / acting character unless noted
+
+er_apply_decay_flag_effect = {
+	# this = newly_created_artifact
+	if = {
+		limit = { has_game_rule = er_rule_decaying_never_decay }
+		# decaying set at create_artifact; nothing further
+	}
+}
+
+er_create_reliquary_weapon_effect = {
+	er_ensure_defaults_effect = yes
+	set_artifact_rarity_illustrious = yes
+	if = {
+		limit = { has_game_rule = er_rule_decaying_never_decay }
+		create_artifact = {
+			name = er_reliquary_weapon_name
+			description = er_reliquary_weapon_desc
+			visuals = sword
+			type = sword
+			template = er_reliquary_template
+			modifier = er_reliquary_weapon_modifier
+			wealth = scope:wealth
+			quality = scope:quality
+			decaying = no
+			history = { type = created_before_history }
+			save_scope_as = newly_created_artifact
+		}
+	}
+	else = {
+		create_artifact = {
+			name = er_reliquary_weapon_name
+			description = er_reliquary_weapon_desc
+			visuals = sword
+			type = sword
+			template = er_reliquary_template
+			modifier = er_reliquary_weapon_modifier
+			wealth = scope:wealth
+			quality = scope:quality
+			history = { type = created_before_history }
+			save_scope_as = newly_created_artifact
+		}
+	}
+	scope:newly_created_artifact = {
+		set_variable = { name = er_reliquary_piece value = yes }
+		set_variable = { name = er_upgrade_tier value = 0 }
+		set_variable = { name = er_piece_kind value = flag:weapon }
+	}
+}
+
+er_create_reliquary_armor_effect = {
+	er_ensure_defaults_effect = yes
+	set_artifact_rarity_illustrious = yes
+	if = {
+		limit = { has_game_rule = er_rule_decaying_never_decay }
+		create_artifact = {
+			name = er_reliquary_armor_name
+			description = er_reliquary_armor_desc
+			visuals = armor
+			type = armor_plate
+			template = er_reliquary_template
+			modifier = er_reliquary_armor_modifier
+			wealth = scope:wealth
+			quality = scope:quality
+			decaying = no
+			history = { type = created_before_history }
+			save_scope_as = newly_created_artifact
+		}
+	}
+	else = {
+		create_artifact = {
+			name = er_reliquary_armor_name
+			description = er_reliquary_armor_desc
+			visuals = armor
+			type = armor_plate
+			template = er_reliquary_template
+			modifier = er_reliquary_armor_modifier
+			wealth = scope:wealth
+			quality = scope:quality
+			history = { type = created_before_history }
+			save_scope_as = newly_created_artifact
+		}
+	}
+	scope:newly_created_artifact = {
+		set_variable = { name = er_reliquary_piece value = yes }
+		set_variable = { name = er_upgrade_tier value = 0 }
+		set_variable = { name = er_piece_kind value = flag:armor }
+	}
+}
+
+er_create_reliquary_trinket_effect = {
+	er_ensure_defaults_effect = yes
+	set_artifact_rarity_illustrious = yes
+	if = {
+		limit = { has_game_rule = er_rule_decaying_never_decay }
+		create_artifact = {
+			name = er_reliquary_trinket_name
+			description = er_reliquary_trinket_desc
+			visuals = necklace
+			type = necklace
+			template = er_reliquary_template
+			modifier = er_reliquary_trinket_modifier
+			wealth = scope:wealth
+			quality = scope:quality
+			decaying = no
+			history = { type = created_before_history }
+			save_scope_as = newly_created_artifact
+		}
+	}
+	else = {
+		create_artifact = {
+			name = er_reliquary_trinket_name
+			description = er_reliquary_trinket_desc
+			visuals = necklace
+			type = necklace
+			template = er_reliquary_template
+			modifier = er_reliquary_trinket_modifier
+			wealth = scope:wealth
+			quality = scope:quality
+			history = { type = created_before_history }
+			save_scope_as = newly_created_artifact
+		}
+	}
+	scope:newly_created_artifact = {
+		set_variable = { name = er_reliquary_piece value = yes }
+		set_variable = { name = er_upgrade_tier value = 0 }
+		set_variable = { name = er_piece_kind value = flag:trinket }
+	}
+}
+
+er_create_reliquary_helmet_effect = {
+	er_ensure_defaults_effect = yes
+	set_artifact_rarity_illustrious = yes
+	if = {
+		limit = { has_game_rule = er_rule_decaying_never_decay }
+		create_artifact = {
+			name = er_reliquary_helmet_name
+			description = er_reliquary_helmet_desc
+			visuals = hre_crown
+			type = helmet
+			template = er_reliquary_template
+			modifier = er_reliquary_helmet_modifier
+			wealth = scope:wealth
+			quality = scope:quality
+			decaying = no
+			history = { type = created_before_history }
+			save_scope_as = newly_created_artifact
+		}
+	}
+	else = {
+		create_artifact = {
+			name = er_reliquary_helmet_name
+			description = er_reliquary_helmet_desc
+			visuals = hre_crown
+			type = helmet
+			template = er_reliquary_template
+			modifier = er_reliquary_helmet_modifier
+			wealth = scope:wealth
+			quality = scope:quality
+			history = { type = created_before_history }
+			save_scope_as = newly_created_artifact
+		}
+	}
+	scope:newly_created_artifact = {
+		set_variable = { name = er_reliquary_piece value = yes }
+		set_variable = { name = er_upgrade_tier value = 0 }
+		set_variable = { name = er_piece_kind value = flag:helmet }
+	}
+}
+
+er_create_reliquary_pedestal_effect = {
+	er_ensure_defaults_effect = yes
+	set_artifact_rarity_illustrious = yes
+	if = {
+		limit = { has_game_rule = er_rule_decaying_never_decay }
+		create_artifact = {
+			name = er_reliquary_pedestal_name
+			description = er_reliquary_pedestal_desc
+			visuals = pedestal_christian_relic
+			type = pedestal
+			template = er_reliquary_template
+			modifier = er_reliquary_pedestal_modifier
+			wealth = scope:wealth
+			quality = scope:quality
+			decaying = no
+			history = { type = created_before_history }
+			save_scope_as = newly_created_artifact
+		}
+	}
+	else = {
+		create_artifact = {
+			name = er_reliquary_pedestal_name
+			description = er_reliquary_pedestal_desc
+			visuals = pedestal_christian_relic
+			type = pedestal
+			template = er_reliquary_template
+			modifier = er_reliquary_pedestal_modifier
+			wealth = scope:wealth
+			quality = scope:quality
+			history = { type = created_before_history }
+			save_scope_as = newly_created_artifact
+		}
+	}
+	scope:newly_created_artifact = {
+		set_variable = { name = er_reliquary_piece value = yes }
+		set_variable = { name = er_upgrade_tier value = 0 }
+		set_variable = { name = er_piece_kind value = flag:pedestal }
+	}
+}
+
+# this = character; targets first owned upgradeable ER artifact
+er_upgrade_artifact_effect = {
+	er_pay_action_cost_effect = { ACTION = upgrade_artifact }
+	random_character_artifact = {
+		limit = {
+			er_artifact_is_er_flagged = yes
+			NAND = {
+				exists = var:er_upgrade_tier
+				var:er_upgrade_tier >= 3
+			}
+		}
+		save_scope_as = er_upgrade_target
+		if = {
+			limit = { NOT = { exists = var:er_upgrade_tier } }
+			set_variable = { name = er_upgrade_tier value = 0 }
+		}
+		change_variable = { name = er_upgrade_tier add = 1 }
+		if = {
+			limit = { var:er_upgrade_tier = 1 }
+			add_artifact_modifier = er_upgrade_tier_1_modifier
+		}
+		else_if = {
+			limit = { var:er_upgrade_tier = 2 }
+			add_artifact_modifier = er_upgrade_tier_2_modifier
+		}
+		else = {
+			add_artifact_modifier = er_upgrade_tier_3_modifier
+		}
+	}
+	trigger_event = er_events.1002
+}
+
+er_repair_artifact_effect = {
+	er_pay_action_cost_effect = { ACTION = repair_artifact }
+	random_character_artifact = {
+		limit = {
+			er_artifact_is_er_flagged = yes
+			artifact_durability < artifact_max_durability
+		}
+		save_scope_as = er_repair_target
+		add_durability = {
+			value = artifact_max_durability
+			subtract = artifact_durability
+		}
+	}
+	trigger_event = er_events.1003
+}
+
+er_awaken_artifact_effect = {
+	er_pay_action_cost_effect = { ACTION = awaken_artifact }
+	random_character_artifact = {
+		limit = {
+			er_artifact_is_er_flagged = yes
+			NOT = { er_artifact_is_awakened = yes }
+		}
+		save_scope_as = er_awaken_target
+		set_variable = { name = er_awakened value = yes }
+		if = {
+			limit = {
+				OR = {
+					var:er_piece_kind = flag:weapon
+					var:er_piece_kind = flag:armor
+					er_artifact_is_regalia = yes
+				}
+			}
+			add_artifact_modifier = er_awakened_combat_modifier
+		}
+		else_if = {
+			limit = {
+				OR = {
+					var:er_piece_kind = flag:pedestal
+					var:er_piece_kind = flag:helmet
+				}
+			}
+			add_artifact_modifier = er_awakened_court_modifier
+		}
+		else = {
+			add_artifact_modifier = er_awakened_learning_modifier
+		}
+	}
+	trigger_event = er_events.1004
+}
+
+er_vault_grandeur_effect = {
+	er_pay_action_cost_effect = { ACTION = vault_grandeur }
+	set_variable = { name = er_vault_active value = yes }
+	remove_character_modifier = er_vault_grandeur_modifier
+	add_character_modifier = {
+		modifier = er_vault_grandeur_modifier
+		days = -1
+	}
+	trigger_event = er_events.1005
+}
+
+er_clear_vault_effect = {
+	remove_variable = er_vault_active
+	remove_character_modifier = er_vault_grandeur_modifier
+}

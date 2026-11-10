@@ -1,0 +1,190 @@
+er_rule_economy = {
+	categories = {
+		tweaks
+	}
+
+	default = er_rule_economy_paid_expensive
+
+	er_rule_economy_free = {
+		flag = blocks_achievements
+	}
+
+	er_rule_economy_paid_modest = {
+	}
+
+	er_rule_economy_paid_expensive = {
+	}
+
+	er_rule_economy_paid_ruinous = {
+	}
+}
+
+er_rule_ai_economy = {
+	categories = {
+		tweaks
+		ai
+	}
+
+	default = er_rule_ai_economy_ai_always_free
+
+	er_rule_ai_economy_follow_player_rule = {
+	}
+
+	er_rule_ai_economy_ai_always_free = {
+	}
+
+	er_rule_ai_economy_ai_disabled = {
+	}
+}
+
+er_rule_hub_economy_cycle = {
+	categories = {
+		tweaks
+	}
+
+	default = er_rule_hub_economy_cycle_allow
+
+	er_rule_hub_economy_cycle_allow = {
+	}
+
+	er_rule_hub_economy_cycle_lock_to_game_rule = {
+	}
+}
+
+er_rule_module_reliquary = {
+	categories = {
+		tweaks
+	}
+
+	default = er_rule_module_reliquary_on
+
+	er_rule_module_reliquary_on = {
+	}
+
+	er_rule_module_reliquary_off = {
+	}
+}
+
+er_rule_module_regalia = {
+	categories = {
+		tweaks
+	}
+
+	default = er_rule_module_regalia_on
+
+	er_rule_module_regalia_on = {
+	}
+
+	er_rule_module_regalia_off = {
+	}
+}
+
+er_rule_module_heirlooms = {
+	categories = {
+		tweaks
+	}
+
+	default = er_rule_module_heirlooms_on
+
+	er_rule_module_heirlooms_on = {
+	}
+
+	er_rule_module_heirlooms_off = {
+	}
+}
+
+er_rule_granting = {
+	categories = {
+		tweaks
+		ai
+	}
+
+	default = er_rule_granting_player_only
+
+	er_rule_granting_player_only = {
+	}
+
+	er_rule_granting_player_and_ai = {
+		flag = blocks_achievements
+	}
+
+	er_rule_granting_disabled = {
+	}
+}
+
+er_rule_regalia_auto_equip = {
+	categories = {
+		tweaks
+	}
+
+	default = er_rule_regalia_auto_equip_on
+
+	er_rule_regalia_auto_equip_on = {
+	}
+
+	er_rule_regalia_auto_equip_off = {
+	}
+}
+
+er_rule_heirloom_never_lost = {
+	categories = {
+		tweaks
+	}
+
+	default = er_rule_heirloom_never_lost_on
+
+	er_rule_heirloom_never_lost_on = {
+	}
+
+	er_rule_heirloom_never_lost_off = {
+	}
+}
+
+er_rule_vault_grandeur = {
+	categories = {
+		tweaks
+	}
+
+	default = er_rule_vault_grandeur_on
+
+	er_rule_vault_grandeur_on = {
+	}
+
+	er_rule_vault_grandeur_off = {
+	}
+}
+
+er_rule_max_awakened = {
+	categories = {
+		tweaks
+	}
+
+	default = er_rule_max_awakened_3
+
+	er_rule_max_awakened_1 = {
+	}
+
+	er_rule_max_awakened_3 = {
+	}
+
+	er_rule_max_awakened_5 = {
+	}
+
+	er_rule_max_awakened_unlimited = {
+		flag = blocks_achievements
+	}
+}
+
+er_rule_decaying = {
+	categories = {
+		tweaks
+	}
+
+	default = er_rule_decaying_never_decay
+
+	er_rule_decaying_normal = {
+	}
+
+	er_rule_decaying_never_decay = {
+	}
+}
